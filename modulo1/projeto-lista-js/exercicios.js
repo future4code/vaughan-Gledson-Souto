@@ -125,8 +125,12 @@ console.log(retornaUltimoElemento())
 // EXERCÍCIO 11
 function trocaPrimeiroEUltimo(array) {
   // implemente sua lógica aqui
-//Desculpa não consegui fazer 
-return 
+  const arrayPriemiro = array[0]
+
+  array.splice(0,1)
+  array.push(arrayPriemiro)
+
+return array
 }
 
 // EXERCÍCIO 12
