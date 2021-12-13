@@ -109,10 +109,10 @@ function retornaChamadaDeFilme(filme) {
        nome:'O Diabo Veste Prada' ,
        ano: 2006 ,
        diretor:'David Frankel' ,
-       atores: ['Meryl Streep', 'Anne Hathaway', 'Emily Blunt', 'Stanley Tucci'],
+       atores: ['Meryl Streep', ' Anne Hathaway', ' Emily Blunt', ' Stanley Tucci'],
    }
 
-   return `Venha assistir ao filme ${dados.nome}, de ${dados.ano}, dirigido por ${dados.diretor} e estrelado por ${dados.atores}`
+   return `Venha assistir ao filme ${dados.nome}, de ${dados.ano}, dirigido por ${dados.diretor} e estrelado por ${dados.atores}.`
 }
 
 // EXERCÍCIO 12
