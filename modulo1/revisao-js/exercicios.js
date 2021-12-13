@@ -80,7 +80,17 @@ function retornaObjetoEntreDoisNumeros(num1, num2) {
 
 // EXERCÍCIO 08
 function retornaNPrimeirosPares(n) {
+        const arrayDePares= []
+    
+        for(let contador = 0; arrayDePares.length < n; contador++) {
+            if(contador % 2 === 0) {
+                arrayDePares.push(contador)
+            }
+        }
+        return arrayDePares
+
    
+
 }
 
 // EXERCÍCIO 09
@@ -95,7 +105,14 @@ function retornaSegundoMaiorESegundoMenor(array) {
 
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
-   
+   const dados = {
+       nome:'O Diabo Veste Prada' ,
+       ano: 2006 ,
+       diretor:'David Frankel' ,
+       atores: ['Meryl Streep', 'Anne Hathaway', 'Emily Blunt', 'Stanley Tucci'],
+   }
+
+   return `Venha assistir ao filme ${dados.nome}, de ${dados.ano}, dirigido por ${dados.diretor} e estrelado por ${dados.atores}`
 }
 
 // EXERCÍCIO 12
