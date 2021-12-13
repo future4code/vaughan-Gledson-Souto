@@ -24,7 +24,15 @@ function retornaArrayOrdenado(array) {
 
 // EXERCÍCIO 04
 function retornaNumerosPares(array) {
-
+    const receber_numeros_pares = array.filter((numerosPares) =>{
+        if (numerosPares % 2 === 0){
+            return numerosPares
+        }
+    
+      });
+      
+ return receber_numeros_pares
+    
 }
 
 // EXERCÍCIO 05
