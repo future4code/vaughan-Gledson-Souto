@@ -37,14 +37,22 @@ function retornaNumerosPares(array) {
 
 // EXERCÍCIO 05
 function retornaNumerosParesElevadosADois(array) {
-
+    for (let elevados of array){
+        console.log(elevados^2)
+  }         
+    return retornaNumerosPares(receber_numeros_pares())
 }
 
 // EXERCÍCIO 06
 function retornaMaiorNumero(array) {
-  
+   let maiorNumero = 0
+    for(let numeroArray of array){
+        if(maiorNumero < numeroArray){
+            maiorNumero = numeroArray
+        }
+    }
 
-
+    return maiorNumero
 }
 
 // EXERCÍCIO 07
