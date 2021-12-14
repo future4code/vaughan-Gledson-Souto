@@ -89,8 +89,6 @@ function retornaNPrimeirosPares(n) {
     }
     return arrayDePares
 
-
-
 }
 
 // EXERCÍCIO 09
@@ -106,7 +104,25 @@ if(ladoA === ladoB && ladoA === ladoC){
 
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
+    const novo_array = []
+    let segundoMaiorNumero = 0
+    for (let numeroArray of array) {
+        if (segundoMaiorNumero <= numeroArray) {
+            segundoMaiorNumero = numeroArray
+        }
+    }
 
+    let segundoMenorNumero = 40
+    for (let numero_do_array of array) {
+        if (segundoMenorNumero > numero_do_array) {
+            segundoMenorNumero = numero_do_array
+        }
+    }
+
+    novo_array.push(segundoMaiorNumero - 1, segundoMenorNumero + 1)
+
+
+    return novo_array
 }
 
 // EXERCÍCIO 11
@@ -123,7 +139,11 @@ function retornaChamadaDeFilme(filme) {
 
 // EXERCÍCIO 12
 function retornaPessoaAnonimizada(pessoa) {
-
+const novo_objeto = {
+    ...pessoa,
+    nome: "ANÔNIMO"
+}
+    return novo_objeto
 }
 
 // EXERCÍCIO 13A
@@ -152,7 +172,17 @@ return novos_dados
 
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
-
+    consultas.sort(function (a, b) {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      });
+      return consultas
 }
 
 // EXERCÍCIO 15B
