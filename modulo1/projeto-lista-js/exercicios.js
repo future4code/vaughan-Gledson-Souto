@@ -22,11 +22,10 @@ function calculaAreaRetangulo(area) {
   const altura = prompt("Digite a altura do retângulo: ")
   const largura = prompt("Digite a largura do retângulo: ")
   
-  area = altura * largura
+   area = altura * largura
   
   console.log(area)
-
-} area
+}
 
 // EXERCÍCIO 02
 function imprimeIdade(idade) {
@@ -47,9 +46,6 @@ function calculaIMC(peso, altura) {
   
   return IMC
 } 
-
-console.log(calculaIMC(85 ,1.8))
-
 
 // EXERCÍCIO 04
 function imprimeInformacoesUsuario() {
@@ -125,8 +121,13 @@ console.log(retornaUltimoElemento())
 // EXERCÍCIO 11
 function trocaPrimeiroEUltimo(array) {
   // implemente sua lógica aqui
-//Desculpa não consegui fazer 
-return 
+  const arrayPrimeiro = array[0]
+  const ultimoNumero = array[array.length - 1]
+  
+  array[0] = ultimoNumero
+  array[array.length - 1] = arrayPrimeiro
+  
+  return array
 }
 
 // EXERCÍCIO 12
