@@ -184,32 +184,41 @@ function retornaPessoasNaoAutorizadas(pessoas) {
 
 // EXERCÍCIO 14
 function retornaContasComSaldoAtualizado(contas) {
-    // contas.forEach((conta) => {
-    //     let totalDeCompras = 0;
-    //     conta.compras.forEach((valor) => {
-    //       totalDeCompras += valor;
-    //     });
-    //     conta.saldoTotal -= totalDeCompras;
-    //   });
-    //   return contas;
-    // 
+ for (const conta of contas){
+     let compraTotal = 0;
+     conta.compras.forEach(valor => {
+         compraTotal = compraTotal + valor
+     });
+     conta.saldoTotal = conta.saldoTotal - compraTotal
+     conta.compras = []
+ }
+
+    return contas
 }
 
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
-    // for (let i = 0; i < consultasNome.length; i++) {
-    //     for (let j = 0; j < consultasNome.length - i - 1; j++) {
-    //       if (consultasNome[j].nome > consultasNome[j + 1].nome) {
-    //         const temp = consultasNome[j];
-    //         consultasNome[j] = consultasNome[j + 1];
-    //         consultasNome[j + 1] = temp;
-    //       }
-    //     }
-    //   }
-    //   return consultasNome;
+    consultas.sort(function (a, b) {
+        if (a.nome > b.nome) {
+          return 1;
+        }
+        if (a.nome < b.nome) {
+          return -1;
+        }
+        return 0;
+      });
+      return consultas
 }
-
 // EXERCÍCIO 15B
 function retornaArrayOrdenadoPorData(consultas) {
-
+    consultas.sort(function (a, b) {
+        if (a.dataDaConsulta < b.dataDaConsulta) {
+          return 1;
+        }
+        if (a.dataDaConsulta > b.dataDaConsulta) {
+          return -1;
+        }
+        return 0;
+      });
+      return consultas
 }
