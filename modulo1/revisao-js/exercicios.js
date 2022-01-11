@@ -37,10 +37,14 @@ function retornaNumerosPares(array) {
 
 // EXERCÍCIO 05
 function retornaNumerosParesElevadosADois(array) {
-    for (let elevados of array) {
-        console.log(elevados ^ 2)
+   let numeros = []
+    for (let i = 0;i < array.length; i ++) {
+       if(array[i] % 2 === 0){
+        numeros.push(array[i] * array[i])
+       }
     }
-    return retornaNumerosPares(receber_numeros_pares())
+    
+    return numeros
 }
 
 // EXERCÍCIO 06
@@ -105,22 +109,31 @@ if(ladoA === ladoB && ladoA === ladoC){
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
     const novo_array = []
-    let segundoMaiorNumero = 0
-    for (let numeroArray of array) {
-        if (segundoMaiorNumero <= numeroArray) {
-            segundoMaiorNumero = numeroArray
+    let menorNumero = Infinity
+    let maiorNumero = -Infinity
+    let segundoMaiorNumero = -Infinity
+    let segundoMenorNumero = Infinity
+
+    for (let i of array) {
+        if (i < menorNumero) {
+            menorNumero = i
+        }
+        if (i > maiorNumero) {
+            maiorNumero = i
         }
     }
 
-    let segundoMenorNumero = 40
-    for (let numero_do_array of array) {
-        if (segundoMenorNumero > numero_do_array) {
-            segundoMenorNumero = numero_do_array
+    for (let i of array) {
+        if (i < segundoMenorNumero && i !== menorNumero) {
+            segundoMenorNumero = i;
+        }
+        if (i > segundoMaiorNumero && i !== maiorNumero) {
+            segundoMaiorNumero = i;
         }
     }
 
-    novo_array.push(segundoMaiorNumero - 1, segundoMenorNumero + 1)
-
+    novo_array.push(segundoMaiorNumero)
+    novo_array.push(segundoMenorNumero)
 
     return novo_array
 }
@@ -148,44 +161,64 @@ const novo_objeto = {
 
 // EXERCÍCIO 13A
 function retornaPessoasAutorizadas(pessoas) {
+    let pessoas_autorizadas = [];
+    for (let i of pessoas) {
+      if (i.altura >= 1.5 && i.idade > 14 && i.idade < 60) {
+        pessoas_autorizadas.push(i);
+      }
+    }
+    return pessoas_autorizadas;
 
 }
 
 // EXERCÍCIO 13B
 function retornaPessoasNaoAutorizadas(pessoas) {
-
+    let pessoas_nao_autorizadas = [];
+    for (let i of pessoas) {
+      if (i.altura < 1.5 || i.idade <= 14 || i.idade >= 60) {
+        pessoas_nao_autorizadas.push(i);
+      }
+    }
+    return pessoas_nao_autorizadas;
 }
 
 // EXERCÍCIO 14
 function retornaContasComSaldoAtualizado(contas) {
-    const novos_dados = [
-        ...contas
-         [{saldoTotal: 400 },
-         { saldoTotal: 6260 },
-         { saldoTotal: -3340 },
-         { saldoTotal: -1900 },
-         { saldoTotal: 1300 },
-         { saldoTotal: 1200 }]
-         ]
-return novos_dados
+ for (const conta of contas){
+     let compraTotal = 0;
+     conta.compras.forEach(valor => {
+         compraTotal = compraTotal + valor
+     });
+     conta.saldoTotal = conta.saldoTotal - compraTotal
+     conta.compras = []
+ }
+
+    return contas
 }
 
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
     consultas.sort(function (a, b) {
-        if (a.name > b.name) {
+        if (a.nome > b.nome) {
           return 1;
         }
-        if (a.name < b.name) {
+        if (a.nome < b.nome) {
           return -1;
         }
-        // a must be equal to b
         return 0;
       });
       return consultas
 }
-
 // EXERCÍCIO 15B
 function retornaArrayOrdenadoPorData(consultas) {
-
+    consultas.sort(function (a, b) {
+        if (a.dataDaConsulta < b.dataDaConsulta) {
+          return 1;
+        }
+        if (a.dataDaConsulta > b.dataDaConsulta) {
+          return -1;
+        }
+        return 0;
+      });
+      return consultas
 }
