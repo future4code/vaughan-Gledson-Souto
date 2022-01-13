@@ -93,7 +93,8 @@ class Post extends React.Component {
       comentando: false,
       numeroComentarios: this.state.numeroComentarios + 1
     })
-  }
+  };
+  
 
 
   render() {
