@@ -4,8 +4,6 @@
 .negrito{
     width: 50%;
     color: rgb(19, 153, 60);
-    margin: 0 auto; 
-
 }
 
 
@@ -26,6 +24,7 @@ footer{
     position: fixed;
     bottom: 0;
     left: 0;
+    margin: 0 auto;
 }
 
 .container-img img{
