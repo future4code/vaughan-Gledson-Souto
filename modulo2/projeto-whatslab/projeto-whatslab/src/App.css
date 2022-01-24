@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.principal{
+    display: flex;
+    justify-content: center;
+    background-color: #00bfa5;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    background-color: #101a1f;
+    position: fixed;
+    bottom: 0;
+    align-items: center;
+
+}
+
+.mensagens{
+    width: 40rem;
+    height: 53rem;
+    border: 50px solid #101a1f;
+}
+
+.inputes{
+    display: flex;
+    width: 500px;
+    padding-bottom: 4px;
+  
+}
+
+#botao-usuario{
+    width: 120px;
+    margin-right: 5px;
+    height: 30px;
+    color:white;
+    background-color: #33383b;
+}
+
+#botao-mensagem{
+    width: 300px;
+    margin-right: 5px;
+    height: 30px;
+    color:white;
+    background-color: #33383b;
+}
+
+#botao-enviar{
+    width: 60px;
+    height: 34px;
+    font-weight: bold;
+    color: white;
+    background-color: #33383b;
+}
+#botao-enviar:hover{
+    cursor: pointer;
+}
+
+.chat-geral{
+    height: 50px;
+    width: 100px;
+    margin: 10px;
+    padding: 10px;
+    color:white;
+    border: 1px solid #056162;
+    border-radius: 10%;
+    background-color: #056162;
+}
+
+
+
