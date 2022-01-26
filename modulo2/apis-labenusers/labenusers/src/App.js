@@ -1,7 +1,7 @@
 import React from "react"
-import axios from "axios"
-import ListaDeUsuarios from "./components/Usuarios"
+import ListaDeUsuarios from "./components/ListaDeUsuarios"
 import CriarUsers from "./components/CriarUsuarios"
+import DetalheUsuario from "./components/DetalheUsuario"
 
 export default class App extends React.Component{
   state = {
@@ -11,21 +11,25 @@ export default class App extends React.Component{
   irParaOutraPage = () => {
     this.setState({page: this.state.page + 1})
   }
-  irParaOutraPage1 = () => {
+    voltarPage = () => {
     this.setState({page: this.state.page - 1})
   }
   render() {
-      const renderizarPages = () => {
+      const paginas = () => {
         if(this.state.page === 1){
           return <CriarUsers prosseguir={this.irParaOutraPage}/>
         } else if(this.state.page === 2){
-          return <ListaDeUsuarios voltar={this.irParaOutraPage1}/>
+          return <ListaDeUsuarios proximo={this.irParaOutraPage} voltar={this.voltarPage}/>
+        } else if (this.state.page === 3){
+          return <DetalheUsuario  voltar={this.voltarPage}/>
         }
+
       }
     return(
       <div>
-          {renderizarPages()}
+          {paginas()}
       </div>
     )
   }
 }
+
