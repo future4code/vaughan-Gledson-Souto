@@ -1,13 +1,11 @@
-import React from "react";
-import styled from "styled-components";
+import React, { createElement } from "react";
+import styled, { createGlobalStyle } from "styled-components";
 import CreatePlaylist from "./pages/CreatePlaylist/CreatePlaylist";
 import ListPlaylist from "./pages/ListPlaylist/ListPlaylist";
 import Detail from "./pages/DetailPlaylist/DetailPlaylist";
+import Global from "./StyledApp";
 
 
-const CorFundo = styled.body`
-  background-color: white;
-`
 export default class App extends React.Component {
   state = {
     page: "CreatePlaylist",
@@ -15,16 +13,16 @@ export default class App extends React.Component {
     listId: ""
   }
 
-  
-  goPageCreate = () =>{
-    this.setState({page: "CreatePlaylist"})
+
+  goPageCreate = () => {
+    this.setState({ page: "CreatePlaylist" })
   }
-  goList = (url) =>{
-    this.setState({page: "ListPlaylist", listId: url})
+  goList = (url) => {
+    this.setState({ page: "ListPlaylist", listId: url })
   }
 
   goDetail = (url) => {
-    this.setState({page: "Detail", detailUrl: url})
+    this.setState({ page: "Detail", detailUrl: url })
   }
 
   changeScreen = () => {
@@ -32,11 +30,11 @@ export default class App extends React.Component {
       case "CreatePlaylist":
         return <CreatePlaylist playlist={this.goList} />
       case "ListPlaylist":
-        return <ListPlaylist voltar={this.goPageCreate} goDetail={this.goDetail} id={this.goList}/>
+        return <ListPlaylist voltar={this.goPageCreate} goDetail={this.goDetail} id={this.goList} />
       case "Detail":
-        return <Detail url={this.state.detailUrl} voltar={this.goList}/>
+        return <Detail url={this.state.detailUrl} voltar={this.goList} />
       default:
-        return <CreatePlaylist/>    
+        return <CreatePlaylist />
     }
   }
 
@@ -44,9 +42,10 @@ export default class App extends React.Component {
 
 
     return (
-      <CorFundo> 
-      {this.changeScreen()}
-      </CorFundo>
+      <>
+        <Global />
+          {this.changeScreen()}
+      </>
     );
   }
 

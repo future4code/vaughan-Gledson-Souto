@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { BASE_URL } from "../../constants/urls";
+import { Add } from "../../StyledApp";
+import { ColorWhite } from "./styled";
+import { Border } from "./styled";
 
 
-const ColorOrange = styled.h1`
-    color: #fe7e02;
-`
 export default class CreatePlaylist extends React.Component {
     state = {
         namePlaylist: "",
@@ -33,16 +33,15 @@ export default class CreatePlaylist extends React.Component {
     }
     render() {
         return (
-            <div>
-                <ColorOrange>Labefy</ColorOrange>
-                
+            <Border>
+                <ColorWhite>Labefy</ColorWhite>
                 <input placeholder="Nome da PlayList"
                     value={this.state.namePlaylist}
                     onChange={this.onChangePlaylist}
                 />
-                <button onClick={this.createPlay}>Criar</button>
-                <button onClick={this.props.playlist}>Ir para Playlist</button>
-            </div>
+                <Add onClick={this.createPlay}>+</Add>
+                <button onClick={this.props.playlist}>Playlist</button>
+            </Border>
         )
     }
 }
