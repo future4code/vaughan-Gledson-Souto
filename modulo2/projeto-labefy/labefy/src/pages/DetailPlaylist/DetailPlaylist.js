@@ -3,11 +3,9 @@ import axios from "axios";
 import styled from "styled-components";
 import { BASE_URL } from "../../constants/urls";
 import { Add } from "../../StyledApp";
-import { TracksAling } from "./styled";
-import { TracksInfos } from "./styled";
-import { StyleButoon } from "./styled";
-
-
+import { TracksAling,TracksInfos,StyleButoon,ContainerDetail, StyleInput,AudioStyle} from "./styled";
+import { ButtoonBack } from "../ListPlaylist/styled";
+import { ColorOrange } from "../ListPlaylist/styled";
 
 export default class Detail extends React.Component {
     state = {
@@ -54,38 +52,40 @@ export default class Detail extends React.Component {
             return (
                 <TracksAling>
                     <TracksInfos key={detalhe.id}>
-                        <p>Nome: {detalhe.name} </p>
-                        <p>Artista: {detalhe.artist}</p>               
+                        <h3>Nome: {detalhe.name} </h3>
+                        <h3>Artista: {detalhe.artist}</h3>               
                     </TracksInfos>
                     
-                    <audio controls>
+                        <AudioStyle controls>
                             <source src={detalhe.url} />
-                        </audio>   
+                        </AudioStyle>   
                     <StyleButoon onClick={() => this.deletarTracks(detalhe.id)}>x</StyleButoon>
                 </TracksAling>
             )
         })
         console.log(this.props.url)
         return (
-            <div>
-                <button onClick={this.props.voltar}>Voltar</button>
+            <ContainerDetail>
+                <ColorOrange>Music</ColorOrange>
                 <div>
-                    <input placeholder="Nome da musica"
+                    <StyleInput placeholder="Nome da musica"
                         value={this.state.name}
                         onChange={this.inputName}
                     />
-                    <input placeholder="Nome do artista"
+                    <StyleInput placeholder="Nome do artista"
                         value={this.state.artist}
                         onChange={this.inputArtist}
                     />
-                    <input placeholder="Link da musica"
+                    <StyleInput placeholder="Link da musica"
                         value={this.state.music}
                         onChange={this.inputMusic}
                     />
                     <Add onClick={this.addTracks}>+</Add>
                 </div>
                 {listaRendereizada}
-            </div>
+                <ButtoonBack onClick={this.props.voltar}>Voltar</ButtoonBack>
+
+            </ContainerDetail>
         )
     }
 }

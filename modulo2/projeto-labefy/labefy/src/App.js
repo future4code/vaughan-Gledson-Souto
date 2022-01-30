@@ -17,8 +17,8 @@ export default class App extends React.Component {
   goPageCreate = () => {
     this.setState({ page: "CreatePlaylist" })
   }
-  goList = (url) => {
-    this.setState({ page: "ListPlaylist", listId: url })
+  goList = (id) => {
+    this.setState({ page: "ListPlaylist", listId: id })
   }
 
   goDetail = (url) => {

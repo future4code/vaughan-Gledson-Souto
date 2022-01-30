@@ -1,10 +1,10 @@
 import React from "react";
-import styled from "styled-components";
 import axios from "axios";
 import { BASE_URL } from "../../constants/urls";
 import { Add } from "../../StyledApp";
-import { ColorWhite } from "./styled";
-import { Border } from "./styled";
+import { ImagemHome,StyleLogo,ContainerPrinc,Header,StyleImg,ButtonHome,StyleInput,BodyCreate } from "./styled";
+import Logo from "./logo/Logo.png"
+import MusicLogo from "./logo/music.svg"
 
 
 export default class CreatePlaylist extends React.Component {
@@ -33,15 +33,23 @@ export default class CreatePlaylist extends React.Component {
     }
     render() {
         return (
-            <Border>
-                <ColorWhite>Labefy</ColorWhite>
-                <input placeholder="Nome da PlayList"
+            <BodyCreate>
+            <ContainerPrinc>
+                <Header>
+                <StyleImg src={Logo}/>
+                <StyleLogo>Labefy</StyleLogo>
+                </Header>
+                <StyleInput placeholder="Criar PlayList"
                     value={this.state.namePlaylist}
                     onChange={this.onChangePlaylist}
                 />
                 <Add onClick={this.createPlay}>+</Add>
-                <button onClick={this.props.playlist}>Playlist</button>
-            </Border>
+                <div>
+                <ButtonHome onClick={this.props.playlist}>Playlist</ButtonHome>
+                </div>
+            </ContainerPrinc>
+            <ImagemHome src={MusicLogo}/>
+            </BodyCreate>
         )
     }
 }
