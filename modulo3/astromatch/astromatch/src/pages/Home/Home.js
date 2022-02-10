@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../constants/Urls";
 
-export default function Home() {
+
+export default function Home(props) {
     const [profiles, setProfiles] = useState({})
 
     useEffect (() => {
         catchProfile()
+        choosePeople()
     },[])
 
     const catchProfile = () => {
@@ -34,6 +36,19 @@ export default function Home() {
 
         })
     }
+    const clearMatches = () => {
+        const clearPeople = window.confirm("Limpar todos os matches")
+        if (clearPeople) {
+            axios.put(`${BASE_URL}/clear`)
+                .then((res) => {
+                    alert("deu certo, brow")
+                })
+                .catch((error) => {
+                    alert("Deu errado, man")
+                })
+        }
+    }
+
 
     return (
         <ContainerHome>
@@ -41,10 +56,11 @@ export default function Home() {
                 <UserStyle>
                     <img src="https://picsum.photos/200/300" alt="foto lorem Picsum" />
                     <h3>Usuario</h3>
+                    <h4 onClick={props.goToHome}>Home</h4>
                 </UserStyle>
                 <MenuDetails>
-                <h3>Matchs</h3>
-                <h3>Mensagens</h3>
+                <h3 onClick={props.goToMatches}>Matches</h3>
+                <h3 onClick={clearMatches}>Limpar</h3>
                 </MenuDetails>
             </ContainerMenu>
 

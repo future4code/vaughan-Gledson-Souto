@@ -28,10 +28,15 @@ img{
 h3{
     color: #f2f2f2;
 }
+h4{
+    color: #f2f2f2;
+    padding-left: 100px;
+    cursor: pointer;
+}
 `
 export const MenuDetails = styled.div`
 display: flex;
-justify-content: flex-start;
+justify-content: space-around;
 gap: 20px;
 padding-top: 10px;
 color: #c92929;
@@ -43,12 +48,13 @@ h3{
     padding: 5px;
     border-radius: 20px;
     cursor: pointer;
-&:hover{
+    &:hover{
     background: linear-gradient(53deg, #c92929 5%, #db575c 100%);
     color: #f2f2f2;
     font-size: 19px;
 }
 }
+
 `
 
 export const CardProfile = styled.div`
