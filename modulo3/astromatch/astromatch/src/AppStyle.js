@@ -10,6 +10,7 @@ export default createGlobalStyle`
     body{
         height: 100vh;
         background: #f2f2f2;
+        font-family: 'Roboto', sans-serif;
     }
 
 `

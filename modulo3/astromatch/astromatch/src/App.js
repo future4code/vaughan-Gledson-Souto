@@ -17,7 +17,7 @@ function App(props) {
     case "Home":
       return <Home goToMatches={goToMatches} />
     case "Matches":
-      return <Matches goToHome={goToHome} /> 
+      return <Matches goToHome={goToHome}/> 
     default: 
       return <Home/>
   }
