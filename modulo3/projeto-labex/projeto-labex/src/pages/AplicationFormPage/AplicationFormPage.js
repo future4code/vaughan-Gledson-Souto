@@ -5,104 +5,107 @@ import { BASE_URL } from "../../constants/urls";
 import { UseRequestData } from "../../hooks/useRequestData";
 import { ContainerForms, InputStyle, SelectStyle } from "./style";
 import { StyledEngineProvider } from '@mui/material/styles';
-import Countries from '../../components/Countries/Countries';
-
+import {Countries} from '../../constants/Countries';
+import UseForm from "../../hooks/useForm";
 
 function AplicationFormPage() {
     const navigate = useNavigate()
-    const listTrips = UseRequestData(`${BASE_URL}/trips`)
-    const [name, setName] = useState("")
-    const [age, setAge] = useState("")
-    const [aplicationText, setAplicationText] = useState("")
-    const [profession, setProfession] = useState("")
-    const [country, setContry] = useState("")
+    const [listTrips] = UseRequestData(`${BASE_URL}/trips`, [])
+    const {form, onChange, clearFields} = UseForm({name: "", age: "", applicationText: "", profession: "", country: ""})
+    const [tripId, setTripId] = useState("")
 
     const goToListTripsPage = () => {
       navigate("/trips/list")
     }
 
-    const formTrips = () => {
+    const formTrips = (event) => {
+      event.preventDefault()
       const body = {
-        name:  name,
-        age: age,
-        applicationText: aplicationText,
-        profession: profession,
-        country: country,
+        name: form.name,
+        age: form.age,
+        applicationText: form.applicationText,
+        profession: form.profession,
+        country: form.country
       }
-      axios.post(`${BASE_URL}/trips/:id/apply`, body)
+      axios.post(`${BASE_URL}/trips/${tripId}/apply`, body)
       .then((res)=>{
-
+        alert("Formulário de inscrição enviado!")
+        clearFields()
       })
       .catch((err)=>{
-        alert(err.response.data)
+        alert(`erro pagina de formulario`, err.response.data)
       })
     }
 
-    const onChangeName = (e) => {
-      setName(e.target.value)
-    }
-    const onChangeAge = (e) => {
-      setAge(e.target.value)
-    }
-    const onChangeAplication = (e) => {
-      setAplicationText(e.target.value)
-    }
-    const onChangeProfession = (e) => {
-      setProfession(e.target.value)
-    }
-    const onChangeCountry = (e) => {
-      setContry(e.target.value)
+    const onChangeTripId = (event) => {
+      setTripId(event.target.value)
     }
 
-    const renderedList = listTrips && listTrips.map((trip)=>{
-      return(
-      <option key={trip.id}>
-        {trip.name}
-        </option>
-       
-      )
+    const renderedList = listTrips.trips && listTrips.trips.map((trip)=>{
+      return<option key={trip.id} value={trip.id}> {trip.name} </option>
     })
+
   return (
-    <ContainerForms>
-        Form page
-        <SelectStyle>
-          <option value="" disabled selected> Escolha uma viagem</option>
+    <>
+    <ContainerForms onSubmit={formTrips}>
+        <SelectStyle onChange={onChangeTripId}>
+          <option  disabled selected>Escolha uma viagem</option>
           {renderedList}
-          </SelectStyle>
+        </SelectStyle>
 
         <InputStyle 
+        name={"name"}
         placeholder="Nome" 
-        value={name}
-        onChange={onChangeName}
+        value={form.name}
+        onChange={onChange}
+        required
         />
 
-        <InputStyle 
+        <InputStyle
+        name={"age"}
         placeholder="Idade"
-        value={age}
-        onChange={onChangeAge}
+        value={form.age}
+        onChange={onChange}
+        type={"number"}
+        pattern={"^(1[89]|[2-9]\d)$"}
         />
-        <InputStyle 
+        <InputStyle
+        name={"applicationText"}
         placeholder="Texto de candidatura"
-        value={aplicationText}
-        onChange={onChangeAplication}
+        value={form.applicationText}
+        onChange={onChange}
+        required
         />
-        <InputStyle 
+
+        <InputStyle
+        name={"profession"} 
         placeholder="Profissão"
-        value={profession}
-        onChange={onChangeProfession}
+        value={form.profession}
+        onChange={onChange}
+        required
         />
+        <SelectStyle
+          name={"country"}
+          value={form.country}
+          onChange={onChange}
+        >
+        
+        <option disabled selected>País</option>
+        {Countries.map((countri)=>{
+          return (<option key={countri.label} value={countri.label}>{countri.label}</option>)
+        })}
+        </SelectStyle>
 
-      <StyledEngineProvider injectFirst>
-      <Countries value={country} onChange={onChangeCountry}/>
-      </StyledEngineProvider>,
-   
-
-        <div>
-        <button onClick={goToListTripsPage}>Voltar</button>
-        <button> Enviar</button>
-        </div>
+        <button type={"submit"}>Enviar</button>
     </ContainerForms>
+
+    <button onClick={goToListTripsPage}>Voltar</button>
+    </>
   );
 }
 
 export default AplicationFormPage
+// name={"country"}
+// value={form.country}
+// onChange={onChange}
+// required

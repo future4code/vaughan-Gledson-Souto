@@ -5,7 +5,7 @@ import { UseRequestData } from "../../hooks/useRequestData";
 
 function ListTripsPage() {
   const navigate = useNavigate()
-  const listTrips = UseRequestData(`${BASE_URL}/trips`)
+  const [listTrips] = UseRequestData(`${BASE_URL}/trips`, {})
 
   const goToHomePage = () => {
     navigate("/")
@@ -14,7 +14,7 @@ function ListTripsPage() {
     navigate("/trips/aplication")
   }
 
-  const renderedList = listTrips && listTrips.map((trip)=>{
+  const renderedList = listTrips.trips && listTrips.trips.map((trip)=>{
     return(
       <div key={trip.id}>
         {trip.name}
