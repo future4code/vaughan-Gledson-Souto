@@ -23,7 +23,7 @@ function LoginPage() {
       }
       axios.post(`${BASE_URL}/login`, body)
       .then((response)=>{
-        window.localStorage.setItem(`token`, response.data.token)
+        localStorage.setItem(`token`, response.data.token)
         goToAdminHomePage()
         clearFields()
       })

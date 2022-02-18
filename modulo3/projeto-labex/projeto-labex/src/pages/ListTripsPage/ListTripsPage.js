@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constants/urls";
-import { UseRequestData } from "../../hooks/useRequestData";
+import UseRequestData from "../../hooks/useRequestData";
 
 function ListTripsPage() {
   const navigate = useNavigate()
-  const [listTrips] = UseRequestData(`${BASE_URL}/trips`, {})
+  const [listTrips] = UseRequestData(`/trips`, {})
 
   const goToHomePage = () => {
     navigate("/")

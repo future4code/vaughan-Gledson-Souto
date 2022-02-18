@@ -2,15 +2,14 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constants/urls";
-import { UseRequestData } from "../../hooks/useRequestData";
+import UseRequestData from "../../hooks/useRequestData";
 import { ContainerForms, InputStyle, SelectStyle } from "./style";
-import { StyledEngineProvider } from '@mui/material/styles';
 import {Countries} from '../../constants/Countries';
 import UseForm from "../../hooks/useForm";
 
 function AplicationFormPage() {
     const navigate = useNavigate()
-    const [listTrips] = UseRequestData(`${BASE_URL}/trips`, [])
+    const [listTrips] = UseRequestData(`/trips`, [])
     const {form, onChange, clearFields} = UseForm({name: "", age: "", applicationText: "", profession: "", country: ""})
     const [tripId, setTripId] = useState("")
 
@@ -90,7 +89,7 @@ function AplicationFormPage() {
           onChange={onChange}
         >
         
-        <option disabled selected>País</option>
+        <option value={""} disabled selected>País</option>
         {Countries.map((countri)=>{
           return (<option key={countri.label} value={countri.label}>{countri.label}</option>)
         })}

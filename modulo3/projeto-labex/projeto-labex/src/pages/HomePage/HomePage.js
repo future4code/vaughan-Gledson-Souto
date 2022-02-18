@@ -8,7 +8,12 @@ function HomePage() {
         navigate("/trips/list")
     }
     const goToLoginPage = () =>{
-        navigate("/login")
+        const token = localStorage.getItem("token")
+        if(token){
+          navigate(`/admin/trips/list`)
+        }else{
+          navigate("/login")
+        }
     }
 
   return (
