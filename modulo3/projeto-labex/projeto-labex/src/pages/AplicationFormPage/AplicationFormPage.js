@@ -12,7 +12,7 @@ function AplicationFormPage() {
     const [listTrips] = UseRequestData(`/trips`, [])
     const {form, onChange, clearFields} = UseForm({name: "", age: "", applicationText: "", profession: "", country: ""})
     const [tripId, setTripId] = useState("")
-
+  
     const goToListTripsPage = () => {
       navigate("/trips/list")
     }
@@ -32,7 +32,7 @@ function AplicationFormPage() {
         clearFields()
       })
       .catch((err)=>{
-        alert(`erro pagina de formulario`, err.response.data)
+        alert(`erro ao enviar`, err.response.data)
       })
     }
 
@@ -45,8 +45,8 @@ function AplicationFormPage() {
     })
 
   return (
-    <>
     <ContainerForms onSubmit={formTrips}>
+        <h1>Inscreva-se para uma viagem</h1>
         <SelectStyle onChange={onChangeTripId}>
           <option  disabled selected>Escolha uma viagem</option>
           {renderedList}
@@ -66,7 +66,7 @@ function AplicationFormPage() {
         value={form.age}
         onChange={onChange}
         type={"number"}
-        pattern={"^(1[89]|[2-9]\d)$"}
+        min={18}
         />
         <InputStyle
         name={"applicationText"}
@@ -83,6 +83,7 @@ function AplicationFormPage() {
         onChange={onChange}
         required
         />
+
         <SelectStyle
           name={"country"}
           value={form.country}
@@ -94,17 +95,15 @@ function AplicationFormPage() {
           return (<option key={countri.label} value={countri.label}>{countri.label}</option>)
         })}
         </SelectStyle>
-
-        <button type={"submit"}>Enviar</button>
+        <div>
+        <button onClick={goToListTripsPage} className="btn item2">Voltar</button>
+        <button type={"submit"} className="btn item1">Enviar</button>
+        </div>
+   
     </ContainerForms>
 
-    <button onClick={goToListTripsPage}>Voltar</button>
-    </>
+  
   );
 }
 
 export default AplicationFormPage
-// name={"country"}
-// value={form.country}
-// onChange={onChange}
-// required

@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 import ProtectedPage from "../../components/ProtectedPage/ProtectedPage";
 import { BASE_URL } from "../../constants/urls";
 import UseRequestData  from "../../hooks/useRequestData";
+import { CardListTrip, ContainerAdmin, Trash } from "./style";
+import Loading from "../../assets/animation.gif"
+
 
 function AdminHomePage() {
- const [listTrips] = UseRequestData(`/trips`, {});
+ const [listTrips, setListTrips, isLoading] = UseRequestData(`/trips`, {});
   const navigate = useNavigate();
   ProtectedPage()
  
@@ -22,7 +25,7 @@ function AdminHomePage() {
   const goToTripDetail = (id) => {
     navigate(`/admin/trips/${id}`)
   }
-  const goToCreateTrip = (id) => {
+  const goToCreateTrip = () => {
     navigate(`/admin/trips/create`)
   }
 
@@ -33,7 +36,8 @@ function AdminHomePage() {
     if(confirmDel){
       axios.delete(`${BASE_URL}/trips/${id}`, axiosConfig)
       .then((res)=>{
-        alert(`tudo certo`)
+        alert(`Viagem deletada`)
+        setListTrips()
       })
       .catch((err)=>{
         alert(`Erro na Admin Page`)
@@ -42,24 +46,25 @@ function AdminHomePage() {
   }
 
   return (
-    <div>
-      <h1>Admin page</h1>
-      <button onClick={logout}>Logout</button>
-      <button onClick={goToCreateTrip}>Criar viagem</button>
+    <ContainerAdmin>
+      <h1>Painel Administrativo</h1>
+      <div className="btns">
       <button onClick={goToHome}>Voltar</button>
-
-      {listTrips.trips && listTrips.trips.map((trip)=>{
+      <button onClick={goToCreateTrip}>Criar viagem</button>
+      <button onClick={logout}>Logout</button>
+      </div>
+   
+      {isLoading? <img src={Loading}/> : listTrips.trips && listTrips.trips.map((trip)=>{
         return (
-          <div key={trip.id}>
-        <div onClick={()=> goToTripDetail(trip.id)}>
-          <h3>{trip.name}</h3>
-        </div>
-          <buttoon onClick={()=> deleteTrip(trip.id, trip.name)}>Deletar</buttoon>
-        </div>
+          <CardListTrip key={trip.id}>
+            <div  onClick={()=> goToTripDetail(trip.id)}>
+            <h3>{trip.name}</h3>
+            </div>
+          <buttoon onClick={()=> deleteTrip(trip.id, trip.name)}><Trash/></buttoon>
+        </CardListTrip>
       )
       })}
-
-    </div>
+    </ContainerAdmin>
   );
 }
 

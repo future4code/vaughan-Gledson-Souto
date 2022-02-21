@@ -4,11 +4,17 @@ import { BASE_URL } from "../../constants/urls";
 import UseForm from "../../hooks/useForm";
 import { planets } from "../../constants/planets";
 import ProtectedPage from "../../components/ProtectedPage/ProtectedPage";
+import { ContainerForms, InputStyle, SelectStyle } from "../AplicationFormPage/style";
+import { useNavigate } from "react-router-dom";
 
 function CreateTripPage() {
   const { form, onChange, clearFields } = UseForm({ name: "", planet: "", date: "", description: "", durationInDays: "" })
+  const navigate = useNavigate()
   ProtectedPage()
   
+  const goToAdminPage = () => {
+    navigate("/admin/trips/list")
+  }
   const createTrip = (event) => {
     event.preventDefault()
     const token = localStorage.getItem(`token`)
@@ -23,6 +29,7 @@ function CreateTripPage() {
     axios.post(`${BASE_URL}/trips`, body, headers)
       .then((res) => {
         alert(`Viagem criada`)
+        clearFields()
       })
       .catch((err) => {
         alert(`Erro ao criar viagem`, err.response)
@@ -30,15 +37,16 @@ function CreateTripPage() {
   }
   return (
     <div>
-      Criar viagem
-      <form onSubmit={createTrip}>
-        <input placeholder="Nome da viagem"
+  
+      <ContainerForms onSubmit={createTrip}>
+        <h1>Criar viagens</h1>
+        <InputStyle placeholder="Nome da viagem"
           name={"name"}
           value={form.name}
           onChange={onChange}
           required
         />
-        <select
+        <SelectStyle
           name={"planet"}
           value={form.planet}
           onChange={onChange}
@@ -48,29 +56,33 @@ function CreateTripPage() {
           {planets.map((planet)=>{
             return <option key={planet} value={planet}>{planet}</option>
           })}
-        </select>
+        </SelectStyle>
 
-        <input type={"date"}
+        <InputStyle type={"date"}
           name={"date"}
           value={form.date}
           onChange={onChange}
           required
         />
-        <input placeholder="Descrição"
+        <InputStyle placeholder="Descrição"
           name={"description"}
           value={form.description}
           onChange={onChange}
           required
         />
-        <input placeholder="Duração em dias"
+        <InputStyle placeholder="Duração em dias"
           name={"durationInDays"}
           value={form.durationInDays}
           onChange={onChange}
           type={"number"}
           required
+          min={50}
         />
-        <button type={"submit"}>Criar</button>
-      </form>
+        <div>
+        <button onClick={goToAdminPage} className="btn">Voltar</button>
+        <button type={"submit"} className="btn">Criar</button>
+        </div>
+      </ContainerForms>
     </div>
   );
 }

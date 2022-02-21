@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../constants/urls";
 import UseRequestData from "../../hooks/useRequestData";
+import { CardListTrip,ContainerTrips, NavButton } from "./style";
+import Loading from "../../assets/animation.gif"
 
 function ListTripsPage() {
   const navigate = useNavigate()
-  const [listTrips] = UseRequestData(`/trips`, {})
+  const [listTrips, setListTrips, isLoading] = UseRequestData(`/trips`, {})
 
   const goToHomePage = () => {
     navigate("/")
@@ -16,22 +17,24 @@ function ListTripsPage() {
 
   const renderedList = listTrips.trips && listTrips.trips.map((trip)=>{
     return(
-      <div key={trip.id}>
-        {trip.name}
-        {trip.description}
-        {trip.planet}
-        {trip.durationInDays}
-        {trip.date}
-      </div>
+      <CardListTrip key={trip.id}>
+        <p><strong>Nome:</strong> {trip.name}</p>
+        <p><strong>Descrição:</strong> {trip.description}</p>
+        <p><strong>Planeta:</strong> {trip.planet}</p>
+        <p><strong>Duração</strong> {trip.durationInDays}</p>
+       <p><strong>Data:</strong> {trip.date}</p>
+      </CardListTrip>
     )
   })
   return (
-    <div>
-        Lista de viagens
-        <button onClick={goToHomePage}>Voltar</button>
-        <button onClick={goToAplicationForm}>Inscrever-se</button>
-        {renderedList}
-    </div>
+    <ContainerTrips>
+      <NavButton>
+        <a onClick={goToHomePage} className="btn item1">Voltar</a>
+        <a onClick={goToAplicationForm} className="btn item2">Inscrever-se</a>
+      </NavButton>
+      <h1>Lista de viagens</h1>
+        {isLoading? <img src={Loading} className="animation"/> : renderedList}
+    </ContainerTrips>
   );
 }
 

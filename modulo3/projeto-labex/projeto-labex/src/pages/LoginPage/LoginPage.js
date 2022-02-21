@@ -3,6 +3,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constants/urls";
 import UseForm from "../../hooks/useForm";
+import { InputStyle } from "../AplicationFormPage/style";
+import { ContainerLogin, FormStyle } from "./style";
 
 function LoginPage() {
     const navigate = useNavigate()
@@ -32,26 +34,28 @@ function LoginPage() {
       })
     }
   return (
-    <div>
-        <h1>login</h1>
-        <form onSubmit={onSubmitLogin}>
-          <input placeholder="E-mail"
+    <ContainerLogin>
+        <h1>Login</h1>
+        <FormStyle onSubmit={onSubmitLogin}>
+          <InputStyle placeholder="E-mail"
           name={"email"}
           value={form.email}
           onChange={onChange}
           required
           />
-          <input placeholder="Senha"
+          <InputStyle placeholder="Senha"
           name={"password"}
           type={"password"}
           value={form.password}
           onChange={onChange}
           required
           />
-        <button type={"submit"}>Entrar</button>
-        </form>
-        <button onClick={goToHomePage}>Voltar</button>
-    </div>
+          <div>
+          <button onClick={goToHomePage}>Voltar</button>
+          <button type={"submit"}>Entrar</button>
+          </div>
+        </FormStyle>
+    </ContainerLogin>
   );
 }
 

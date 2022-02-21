@@ -45,7 +45,7 @@ export const Countries = [
   { code: 'BM', label: 'Bermuda', phone: '1-441' },
   { code: 'BN', label: 'Brunei Darussalam', phone: '673' },
   { code: 'BO', label: 'Bolivia', phone: '591' },
-  { code: 'BR', label: 'Brazil', phone: '55' },
+  { code: 'BR', label: 'Brasil', phone: '55' },
   { code: 'BS', label: 'Bahamas', phone: '1-242' },
   { code: 'BT', label: 'Bhutan', phone: '975' },
   { code: 'BV', label: 'Bouvet Island', phone: '47' },
