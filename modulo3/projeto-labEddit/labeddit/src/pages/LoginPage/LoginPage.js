@@ -1,60 +1,57 @@
-import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../constants/urls";
+import Share from "../../components/Share/Share";
 import UseForm from "../../hooks/useForm";
-import { goToFeed, goToSignUp } from "../../routes/Coordinator";
+import { goToSignUp } from "../../routes/Coordinator";
+import { onSubmitLogin } from "../../services/requests";
+import { ContainerLogin, StyleForm } from "./style";
 
 
 const LoginPage = () => {
     const {form , onChange, clearFields} = UseForm({email: "", password: ""})
     const navigate = useNavigate()
 
-    const onSubmitLogin = (event) => {
+    const submitLogin = (event) => {
         event.preventDefault()
-        const body = {
-            email: form.email,
-            password: form.password,
-        }
-        axios.post(`${BASE_URL}/users/login`, body)
-        .then((res)=>{
-            alert(`Logado!`)
-            window.localStorage.setItem(`token`, res.data.token)
-            goToFeed(navigate)
-            clearFields()
-        })  
-        .catch((err)=>{
-            alert(`Erro ao logar!`, err.response)
-
-        })
-
+        onSubmitLogin(form, clearFields, navigate)
     }
 
     return (
-      <div>
-          <h1>Login</h1>
-          <form onSubmit={onSubmitLogin}>
+      <ContainerLogin>
+        <div className="divLogo">
+        <h1>Labeddit</h1>
+        <h2>O LabEddit ajuda você a se conectar e compartilhar com as pessoas que fazem parte da sua vida.</h2>
+        </div>
+
+        <div className="divForm">
+        <StyleForm onSubmit={submitLogin}>
+              
              <input placeholder="E-mail"
              name={"email"}
              value={form.email}
+             type={"email"}
              onChange={onChange}
              required
              />
+
              <input placeholder="Senha"
              name={"password"}
              value={form.password}
              onChange={onChange}
+             type={"password"}
+             pattern={"^.{8,30}"}
+             title={"A precisa precisa contem no mínimo 8 caracteres e no máximo 30"}
              required
              />
 
-             <button type={"submit"}>Login</button>
-          </form>
+            <button type={"submit"} className="login">Login</button>
             <div>
-            <h2>Não possui uma conta? faça seu cadastro!!</h2>
-            <button onClick={()=> goToSignUp(navigate)}>Cadastrar</button>
+            <button onClick={()=> goToSignUp(navigate)} className="signup">Criar nova conta</button>
             </div>
-
-      </div>
+         
+        </StyleForm>
+        </div>
+      </ContainerLogin>
     );
   }
   

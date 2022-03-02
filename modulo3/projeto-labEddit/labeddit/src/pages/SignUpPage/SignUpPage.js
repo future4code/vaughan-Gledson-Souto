@@ -1,30 +1,26 @@
 import axios from "axios";
 import React from "react";
+import { useNavigate } from "react-router";
 import { BASE_URL } from "../../constants/urls";
 import UseForm from "../../hooks/useForm";
+import { signUp } from "../../services/requests";
+import { ContainerSignup } from "./style";
 
 const SignUpPage = () => {
+  const navigate = useNavigate()
   const {form, onChange, clearFields} = UseForm({username: "", email:"", password: ""})
 
-  const signUp = (event) => {
+  const register = (event) => {
     event.preventDefault()
-    const body = {
-      username: form.username,
-      email: form.email,
-      password: form.password
-    }
-    axios.post(`${BASE_URL}/users/signup`, body)
-    .then((res)=>{
-      alert("usuário cadastrado")
-    })
-    .catch((err)=>{
-      alert("Erro ao cadastrar, tente novamente!")
-    })
+    signUp(form, clearFields, navigate)
   }
     return (
-      <div>
+      <ContainerSignup>
+
+        <div className="divForm">
+
+        <form onSubmit={register}>
         <h1>Cadastrar</h1>
-        <form onSubmit={signUp}>
           <input placeholder="nome"
           name={"username"}
           value={form.username}
@@ -34,18 +30,26 @@ const SignUpPage = () => {
           <input placeholder="E-mail"
           name={"email"}
           value={form.email}
+          type={"email"}
           onChange={onChange}
           required
           />
           <input placeholder="senha"
           name={"password"}
+          type={"password"}
           value={form.password}
           onChange={onChange}
+          pattern={"^.{8,30}"}
+          title={"A precisa precisa contem no mínimo 8 caracteres e no máximo 30"}
           required
           />
-          <button type="submit">Cadastrar</button>
+
+        <button type="submit">Cadastrar</button>
         </form>
-      </div>
+
+        </div>
+        
+      </ContainerSignup>
     );
   }
   

@@ -1,24 +1,21 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import UseRequestData from "../../hooks/useRequestData";
+import Comment from "../../components/Comment/Comment";
+import Header from "../../components/Header/Header";
+import UseProtectPage from "../../hooks/useProtectPage";
+import { ContainerPost } from "./style";
 
 const PostPage = () => {
-    const params = useParams()
-    const [listComments] = UseRequestData(`/posts/${params.id}/comments`, [])
 
-
+   UseProtectPage()
     return (
-      <div>
-        <h1>Post</h1>
-        {listComments && listComments.map((comments)=>{
-            return(
-                <div key={comments.id}>
-                    {comments.body}
-                    {comments.createdAt}
-                </div>
-            )
-        })}
-      </div>
+      <>
+      <Header />
+     
+      <ContainerPost>
+        
+        <Comment />
+      </ContainerPost>
+      </>
     );
   }
   
