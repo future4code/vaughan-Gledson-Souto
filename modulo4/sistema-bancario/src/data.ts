@@ -25,5 +25,18 @@ export const usuarios: TypeUsuarios[] = [
                 descricao: ""
             }
         ]
+    },
+    {
+        nome: "Lucas",
+        cpf: 11111111111,
+        dataNascimento: "01/01/2004",
+        saldo: 10,
+        extrato: [
+            {
+                valor: 100,
+                data: "10/12/2020",
+                descricao: "Internet"
+            }
+        ]
     }
 ]
