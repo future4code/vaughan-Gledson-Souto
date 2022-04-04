@@ -120,7 +120,6 @@ app.post("/cadastro", (req: Request, res: Response)=>{
     }
 })
 
-
 app.post("/usuarios/pagamento", (req: Request, res: Response)=>{
     let erroCode: number = 400
     try{
@@ -144,7 +143,7 @@ app.post("/usuarios/pagamento", (req: Request, res: Response)=>{
                usuarios[i].extrato.push(novoExtrato)
                if(valor > usuarios[i].saldo){
                    erroCode = 422
-                   throw new Error("O valor da conta é maior que seu saldo")
+                   throw new Error("Você não tem saldo suficiente")
                }
             }
             
