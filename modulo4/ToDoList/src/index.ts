@@ -10,10 +10,22 @@ const app: Express = express();
 app.use(express.json());
 app.use(cors());
 
-app.post("/user/register",  async(req: Request, res: Response) => {
+app.post("/user/register",  async(req: Request, res: Response): Promise<void> => {
     let codeError: number = 400
     try{
         const {name, nickname, email} = req.body
+        if(!name){
+            codeError = 422
+            throw new Error("Need name in body")
+        }
+        if(!nickname){
+            codeError = 422
+            throw new Error("Need nickname in body")
+        }
+        if(!email){
+            codeError = 422
+            throw new Error("Need email in body")
+        }
         await connection.insert({id: Date.now().toString(), name, nickname, email}).into(("to_do_list_users"))
         
         res.status(201).send({message: `User Created`})
@@ -22,7 +34,7 @@ app.post("/user/register",  async(req: Request, res: Response) => {
     }
 });
 
-app.get("/user/:id",  async(req: Request, res: Response) => {
+app.get("/user/:id",  async(req: Request, res: Response): Promise<void> => {
     let codeError: number = 400
     try{
         const id = req.params.id
@@ -39,7 +51,7 @@ app.get("/user/:id",  async(req: Request, res: Response) => {
     }
 });
 
-app.put("/user/edit/:id",  async(req: Request, res: Response) => {
+app.put("/user/edit/:id",  async(req: Request, res: Response): Promise<void> => {
     let codeError: number = 400
     try{
         const {name, nickname} = req.body
@@ -64,7 +76,7 @@ app.put("/user/edit/:id",  async(req: Request, res: Response) => {
     }
 });
 
-app.post("/task",  async(req: Request, res: Response) => {
+app.post("/task",  async(req: Request, res: Response): Promise<void> => {
     let codeError: number = 400
     try{
        
@@ -88,7 +100,7 @@ app.post("/task",  async(req: Request, res: Response) => {
     }
 });
 
-app.get("/task/:id",  async(req: Request, res: Response) => {
+app.get("/task/:id",  async(req: Request, res: Response): Promise<void> => {
     let codeError: number = 400
     try{
         const id = req.params.id
@@ -105,8 +117,97 @@ app.get("/task/:id",  async(req: Request, res: Response) => {
     }
 });
 
+app.get("/users/all",  async(req: Request, res: Response): Promise<void> => {
+    let codeError: number = 400
+    try{
+        const users = await connection("to_do_list_users")
+
+        res.status(200).send(users)
+    } catch (err: any) {
+        res.status(codeError).send({message: err.sqlMessage || err.message });
+    }
+});
+
+app.get("/task",  async(req: Request, res: Response): Promise<void> => {
+    let codeError: number = 400
+    try{
+        const user_id = req.query.user_id 
+        const users = await connection.raw(`
+          SELECT to_do_list_tasks.id, title, description, date_limit, user_id, status, to_do_list_users.nickname FROM to_do_list_tasks
+          JOIN to_do_list_users
+          ON to_do_list_users.id = to_do_list_tasks.user_id;
+        `)
+   
+        const filterUsers = users[0].filter((user: any) => {
+            return user.user_id === user_id
+        })
+
+        res.status(200).send({tasks: filterUsers})
+    } catch (err: any) {
+        res.status(codeError).send({message: err.sqlMessage || err.message });
+    }
+});
+
+app.get("/user",  async(req: Request, res: Response): Promise<void> => {
+    let codeError: number = 400
+    try{
+        const query = req.query.query 
+        const users = await connection("to_do_list_users")
+   
+        const filterUsers = users.filter((user: any) => {
+            return user.nickname.toLowerCase().includes(query) || user.email.toLowerCase() === query
+        })
+
+        res.status(200).send({users: filterUsers})
+    } catch (err: any) {
+        res.status(codeError).send({message: err.sqlMessage || err.message });
+    }
+});
+
+app.post("/task/responsible",  async(req: Request, res: Response): Promise<void> => {
+    let codeError: number = 400
+    try{
+       
+        const {task_id, responsible_user_id} = req.body
+ 
+        await connection.insert(
+            {
+                task_id,
+                responsible_user_id
+            })
+            .into(("to_do_list_responsible_user"))
+        
+        res.status(201).send({message: `Success`})
+    } catch (err: any) {
+        res.status(codeError).send({message: err.sqlMessage || err.message });
+    }
+});
 
 
+app.get("/task/:id/responsible",  async(req: Request, res: Response): Promise<void> => {
+    let codeError: number = 400
+    try{
+        const taskId = req.params.task_id;
+        
+        const tasks = await connection.raw(`
+            SELECT task_id, nickname FROM to_do_list_responsible_user
+            JOIN to_do_list_users
+            ON to_do_list_users.id = responsible_user_id  
+            JOIN to_do_list_tasks
+            ON to_do_list_tasks.id = task_id
+            WHERE task_id = "${taskId}";
+        `)
+        if(tasks.length === 0){
+            codeError = 404;
+            throw new Error("task not found")
+        }else{
+            res.status(200).send({users: tasks})
+        }
+        
+    }catch (err: any) {
+        res.status(codeError).send({message: err.sqlMessage || err.message });
+    }
+});
 
 
 
