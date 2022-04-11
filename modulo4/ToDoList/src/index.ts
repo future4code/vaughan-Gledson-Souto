@@ -57,15 +57,15 @@ app.put("/user/edit/:id",  async(req: Request, res: Response): Promise<void> => 
         const {name, nickname} = req.body
         if(!name){
             codeError = 422;
-            throw new Error("O campo name precisa ser preenchido")
+            throw new Error("Need name in body")
         }
         if(!nickname){
             codeError = 422;
-            throw new Error("O campo nickname precisa ser preenchido")
+            throw new Error("Need nickname in body")
         }
         if(!req.params.id){
             codeError = 422;
-            throw new Error("A path variables id precisa ser preenchida")
+            throw new Error("Need id in path variables")
         }
         console.log(!req.params.id)
         await connection("to_do_list_users").update({name, nickname}).where({id: req.params.id})
@@ -84,6 +84,22 @@ app.post("/task",  async(req: Request, res: Response): Promise<void> => {
         let dateBrazilian = date_limit
         let dateAmerica = dateBrazilian.split("/").reverse().join("-")
 
+        if(!title){
+            codeError = 422;
+            throw new Error("Need title in body")
+        }
+        if(!description){
+            codeError = 422;
+            throw new Error("Need nickname in body")
+        }
+        if(!date_limit){
+            codeError = 422;
+            throw new Error("Need description in body")
+        }
+        if(!user_id){
+            codeError = 422;
+            throw new Error("Need user_id in body")
+        }
         await connection.insert(
             {
                 id: Date.now().toString(),
@@ -131,7 +147,11 @@ app.get("/users/all",  async(req: Request, res: Response): Promise<void> => {
 app.get("/task",  async(req: Request, res: Response): Promise<void> => {
     let codeError: number = 400
     try{
-        const user_id = req.query.user_id 
+        const userId = req.query.user_id;
+        if(!userId){
+            codeError = 422
+            throw new Error("Need id in query parameters")
+        }
         const users = await connection.raw(`
           SELECT to_do_list_tasks.id, title, description, date_limit, user_id, status, to_do_list_users.nickname FROM to_do_list_tasks
           JOIN to_do_list_users
@@ -139,7 +159,7 @@ app.get("/task",  async(req: Request, res: Response): Promise<void> => {
         `)
    
         const filterUsers = users[0].filter((user: any) => {
-            return user.user_id === user_id
+            return user.user_id === userId
         })
 
         res.status(200).send({tasks: filterUsers})
@@ -153,10 +173,19 @@ app.get("/user",  async(req: Request, res: Response): Promise<void> => {
     try{
         const query = req.query.query 
         const users = await connection("to_do_list_users")
-   
+        if(!query){
+            codeError = 422
+            throw new Error("Need query in query parameters")
+        }
+
         const filterUsers = users.filter((user: any) => {
             return user.nickname.toLowerCase().includes(query) || user.email.toLowerCase() === query
         })
+
+        if(filterUsers.length === 0){
+            codeError = 404
+            throw new Error("Not found")
+        }
 
         res.status(200).send({users: filterUsers})
     } catch (err: any) {
@@ -169,7 +198,15 @@ app.post("/task/responsible",  async(req: Request, res: Response): Promise<void>
     try{
        
         const {task_id, responsible_user_id} = req.body
- 
+        
+        if(!task_id){
+            codeError = 422;
+            throw new Error("Need task_id in body")
+        }
+        if(!responsible_user_id){
+            codeError = 422;
+            throw new Error("Need responsible_user_id in body")
+        }
         await connection.insert(
             {
                 task_id,
