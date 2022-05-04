@@ -1,16 +1,9 @@
-import express, { Express } from "express";
-import cors from "cors";
-import { AddressInfo } from "net";
+import { UserBusiness } from "./business/UserBusiness";
+import { app } from "./controller/app";
+import { UserDatabase } from "./data/UserDatabase";
 
-const app: Express = express();
-app.use(express.json());
-app.use(cors());
+const userBusiness = new UserBusiness(
+    new UserDatabase()
+);
 
-const server = app.listen(process.env.PORT || 3003, () => {
-    if (server) {
-       const address = server.address() as AddressInfo;
-       console.log(`Server is running in http://localhost: ${address.port}`);
-    } else {
-       console.error(`Failure upon starting server.`);
-    }
-});
+app.post("/user/signup", userBusiness.signup);
