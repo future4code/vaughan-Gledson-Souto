@@ -1,5 +1,6 @@
 import { User } from "./User";
 
 export interface IUserData {
-    signup(user: User): void
+    insert(user: User): Promise<User>
+    findUserByEmail(email: string): Promise<User>
 }

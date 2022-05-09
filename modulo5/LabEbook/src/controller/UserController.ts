@@ -3,7 +3,7 @@ import { UserBusiness } from "../business/UserBusiness";
 import { signupInputDTO } from "../types/signupInputDTO";
 
 
-export class UserController {
+export default class UserController {
     constructor(
         private userBusiness: UserBusiness
     ){
@@ -27,7 +27,28 @@ export class UserController {
             });
         }catch(e){
             if (e instanceof Error) {
-                throw new Error(e.message)
+                res.send({message: e.message});
+            } else {
+                throw new Error("Erro do banco!")
+            }
+        }
+    }
+    
+    login = async(req: Request, res: Response) => {
+        const {email, password} = req.body;
+        const input = {
+            email,
+            password
+        }
+        try {
+            const token = await this.userBusiness.login(input);
+            res.status(200).send({
+                message: "Usário logado com sucesso",
+                token
+            });
+        }catch(e) {
+            if (e instanceof Error) {
+                res.send({message: e.message});
             } else {
                 throw new Error("Erro do banco!")
             }
