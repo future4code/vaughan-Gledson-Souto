@@ -1,4 +1,6 @@
+import { UserBusinessMock } from "./mocks/UserBusinessMock"
 
+const userBusinessMock = new UserBusinessMock;
 describe("getUserById", () => {
 	// (a)
    test("Should catch error when id is not registered", async () => {
