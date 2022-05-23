@@ -57,8 +57,9 @@ export const BoxGenres = styled(Box)`
 display: flex;
 align-items: center;
 flex-direction: column;
+
 @media screen and (min-width : 320px) and (max-width : 480px){ 
-        align-items: flex-start
+    align-items: flex-start
 }
 p{
     width: 100%;

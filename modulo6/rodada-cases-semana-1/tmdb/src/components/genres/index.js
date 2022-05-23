@@ -43,7 +43,7 @@ export const Genres = () => {
 
       <BoxGenres
         sx={{
-          width: '90%',
+          width: '100%',
           marginBottom: "70px"
         }}
       >

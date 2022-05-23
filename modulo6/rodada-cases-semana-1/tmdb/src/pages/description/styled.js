@@ -9,7 +9,7 @@ height: 100%;
 `
 export const ContainerPoster = styled.div`
 width: 100%;
-height: 29rem;
+height: 34.5rem;
 background-color: ${secudaryColor};
 
 

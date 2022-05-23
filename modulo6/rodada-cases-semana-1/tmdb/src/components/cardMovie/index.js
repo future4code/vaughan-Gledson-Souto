@@ -1,4 +1,4 @@
-import React, { useContext, useState} from 'react';
+import React, { useContext} from 'react';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea, Typography } from '@mui/material';
@@ -11,14 +11,15 @@ import { useNavigate } from 'react-router-dom';
 
 
 export const CardMovie = (data) => {
-  const {id} = useContext(GlobalStateContext)
+  const {setRating} = useContext(GlobalStateContext)
   const navigate = useNavigate()
 
 
-  const movieId = (id) => {
+  const movieId = (id, rating) => {
     goToDescription(navigate, id)
+    setRating(rating)
   }
-
+  
   const listMovie = data.data.results && data.data.results
   .map((movie) => {
     return (
@@ -26,10 +27,10 @@ export const CardMovie = (data) => {
         sx={{ maxWidth: 176 }}
         key={movie.id}
       >
-      <Card sx={{ maxWidth: 176 }} key={id}>
+      <Card sx={{ maxWidth: 176 }} key={movie.id}>
         <CardActionArea>
 
-          <CardMedia onClick={()=> movieId(movie.id)} component="img"
+          <CardMedia onClick={()=> movieId(movie.id, movie.vote_average)} component="img"
             image={IMG_URL + movie.poster_path} alt={movie.title}
           />
         </CardActionArea>

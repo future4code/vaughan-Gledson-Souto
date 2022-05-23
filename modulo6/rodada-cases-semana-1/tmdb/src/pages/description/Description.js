@@ -10,6 +10,7 @@ import { Card, Typography } from '@mui/material';
 import { CastCarousel } from './castCarousel';
 import { DetailMovie } from './detailMovie';
 import { Loading } from '../../components/loading';
+import CircularStatic from './circularProgress';
 
 
 const Description = () => {
@@ -17,6 +18,7 @@ const Description = () => {
     const [data, loading] = useRequestData([], `/movie/${params.id}?${API_KEY}&language=pt-BR`);
     const [detail] = useRequestData([], `/movie/${params.id}/release_dates?${API_KEY}&language=pt-BR`);
     const [credits] = useRequestData([], `/movie/${params.id}/credits?${API_KEY}&language=pt-BR`);
+
 
     let all = data.runtime;
     let minutes = all % 60;
@@ -49,7 +51,7 @@ const Description = () => {
             <ContainerPoster>
                 <div>
                     <Card sx={{ maxWidth: 350, margin: "70px 0px 0px 160px" }} className="cardImg">
-                        <CardMedia component="img" 
+                        <CardMedia component="img"
                             image={IMG_URL + data.poster_path} alt={data.title}
                         />
                     </Card>
@@ -65,9 +67,12 @@ const Description = () => {
                         • {genres} • {`${hours}h${minutes}m`}
                     </Typography>
 
-                    <Typography color="#DDDDDD" className="infos">
-                        {data.vote_average} Avaliação dos usuarios
-                    </Typography>
+                    <Box sx={{ display: 'flex',alignItems: 'center', gap: '10px', width: '200px'}}>
+                        <CircularStatic/>
+                        <Typography color="#fff" className="infos" variant="p">
+                            Avaliação dos usuarios
+                        </Typography>
+                    </Box>
 
                     <Typography variant="h6" className="infos">
                         Sinopse
@@ -130,14 +135,14 @@ const Description = () => {
                     </Box>
                 </BoxInfos>
             </ContainerPoster>
-            {loading? <Loading/> : 
+            {loading ? <Loading /> :
                 <>
                     <ContainerCarousel>
-                        <CastCarousel/>
+                        <CastCarousel />
                     </ContainerCarousel>
 
                     <ContainerDetail>
-                        <DetailMovie/>
+                        <DetailMovie />
                     </ContainerDetail>
                 </>
             }

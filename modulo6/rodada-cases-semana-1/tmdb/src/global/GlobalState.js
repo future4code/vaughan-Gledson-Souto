@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import GlobalStateContext from "./GlobalStateContext";
 
 const GlobalState = (props) => {
-    const [id, setId] = useState()
+    const [rating, setRating] = useState()
     const data = {
-        id,
-        setId
+        rating,
+        setRating
     }
     
     return(
