@@ -24,6 +24,10 @@ const Description = () => {
     let minutes = all % 60;
     let hours = (all - minutes) / 60;
 
+    let number = data.vote_average
+    let percentage = number / 10 * 100
+
+
     const year = data.release_date?.split('-');
 
     const listDetailMovie = detail.results && detail.results.filter((movie) => {
@@ -68,7 +72,7 @@ const Description = () => {
                     </Typography>
 
                     <Box sx={{ display: 'flex',alignItems: 'center', gap: '10px', width: '200px'}}>
-                        <CircularStatic/>
+                        <CircularStatic percentage={percentage}/>
                         <Typography color="#fff" className="infos" variant="p">
                             Avaliação dos usuarios
                         </Typography>

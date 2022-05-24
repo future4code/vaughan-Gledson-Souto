@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 
 export const ContainerDetail = styled.div`
-max-width: 85vw;
+width: 82vw;
 `
 export const ContainerRecommendation = styled.div`
 display: flex;

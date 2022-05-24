@@ -3,7 +3,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
-import GlobalStateContext from '../../../global/GlobalStateContext';
 
 function CircularProgressWithLabel(props) {
 
@@ -37,9 +36,9 @@ CircularProgressWithLabel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function CircularStatic() {
-  const {rating} = React.useContext(GlobalStateContext)
-  const [progress] = React.useState(rating / 10 * 100);
-  
-  return <CircularProgressWithLabel value={progress} />;
+export default function CircularStatic({percentage}) {
+  if(isNaN(percentage)){
+    percentage = 0
+  }
+  return <CircularProgressWithLabel value={percentage} />;
 }

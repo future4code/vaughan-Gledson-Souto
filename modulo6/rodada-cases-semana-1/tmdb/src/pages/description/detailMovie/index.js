@@ -44,7 +44,7 @@ export const DetailMovie = () => {
     return (
         <ContainerDetail>
             <div>
-            <Typography variant="h5" fontWeight="bold" margin="0px 0px 20px 20px" letterSpacing="-0.005em">
+            <Typography variant="h5" fontWeight="bold" margin="0px 0px 20px 0px" letterSpacing="-0.005em">
                 Trailer
             </Typography>
 
@@ -56,7 +56,7 @@ export const DetailMovie = () => {
             </div>
 
             <div >
-                <Typography variant="h5" fontWeight="bold" margin="40px 0px 20px 20px" letterSpacing="-0.005em">
+                <Typography variant="h5" fontWeight="bold" margin="40px 0px 20px 0px" letterSpacing="-0.005em">
                     Recomendações
                 </Typography>
             <ContainerRecommendation>
