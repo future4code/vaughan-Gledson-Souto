@@ -7,7 +7,7 @@ export default createGlobalStyle`
       box-sizing: border-box;
   }
   html,body{
-
+    background-color: #EFEFEF
   }
 
 `;
