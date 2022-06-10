@@ -2,18 +2,23 @@ import * as React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { newDate } from "constants/formatDate";
 import UseRequestData from "hooks/UseRequestData";
-import { BoxLotterie, buttonNumber, Container, GroupLotterie } from "./style";
+import {
+  BoxLotterie,
+  BoxNumbers,
+  buttonNumber,
+  Container,
+  formStyle,
+  GroupLotterie,
+} from "./style";
 import clover from "assets/clover.svg";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 const Home = () => {
-  const id = React.useId();
   const [data] = UseRequestData([], "/loterias");
   const [contests] = UseRequestData([], "/loterias-concursos");
-  const [lotteries, setLotteries] = React.useState("");
+  const [lotteries, setLotteries] = React.useState(0);
 
   // filtrando por id da loteria-concourso com id selecionado no form select
   const contestId =
@@ -36,21 +41,16 @@ const Home = () => {
   const lotterieName =
     data && data?.filter((lotterie: any) => lotteries === lotterie.id);
 
-  console.log("lotteries", contests);
-
   return (
     <Container>
-      <GroupLotterie>
+      <GroupLotterie color={lotterieName?.[0]?.nome}>
         <Box>
-          <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-            <InputLabel id="demo-select-small">loterias</InputLabel>
+          <FormControl sx={formStyle} size="small">
             <Select
               labelId="demo-select-small"
               id="demo-select-small"
               value={lotteries}
-              label="loterias"
               onChange={handleChange}
-              defaultValue={data?.[0]?.nome}
             >
               {data &&
                 data.map((lotterie: any) => {
@@ -65,9 +65,11 @@ const Home = () => {
         </Box>
         <BoxLotterie>
           <img src={clover} alt="trevo" />
-          <Typography>
+          <Typography color="#fff" variant="h4" fontWeight="bold">
             {lotterieName?.[0]?.nome === undefined ? (
-              <Typography>MEGA-SENA</Typography>
+              <Typography color="#fff" variant="h4" fontWeight="bold">
+                MEGA-SENA
+              </Typography>
             ) : (
               lotterieName?.[0]?.nome.toUpperCase()
             )}
@@ -75,25 +77,34 @@ const Home = () => {
         </BoxLotterie>
 
         <Box>
-          <Typography variant="h6">CONSURSO</Typography>
-          <Typography variant="h6" fontWeight="semi-bold">
+          <Typography color="#fff" variant="h6">
+            CONSURSO
+          </Typography>
+          <Typography color="#fff" variant="h6" fontWeight="bold">
             {contest.id} - {newDate(contest.data)}
           </Typography>
         </Box>
       </GroupLotterie>
 
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <div>
+      <BoxNumbers>
+        <div></div>
+        <div className="button">
           {contest.numeros &&
             contest.numeros?.map((numbers: number[]) => {
               return (
-                <Button sx={buttonNumber} key={id}>
+                <Button sx={buttonNumber} key={Math.random()}>
                   {numbers}
                 </Button>
               );
             })}
         </div>
-      </Box>
+        <div>
+          <Typography margin="15px 0px 0px 15px">
+            Este sorteio é meramente ilustrativo e não possui nenhuma ligação
+            com a CAIXA.
+          </Typography>
+        </div>
+      </BoxNumbers>
     </Container>
   );
 };
