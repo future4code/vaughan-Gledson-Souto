@@ -1,8 +1,4 @@
-<img alt="" width="300"  
-id="top" 
-src="https://camo.githubusercontent.com/028343c96278d8610acbf46e6215f28b6fb7e2d7a0a555d8dd2e42e4771fccd9/68747470733a2f2f692e696d6775722e636f6d2f367132416952672e706e67"> <img alt="" width="100" src="https://user-images.githubusercontent.com/94838711/169862569-5aaed0cd-69a5-40d1-8d6b-b6e15080e62a.png"> <img alt="" width="150" src="https://user-images.githubusercontent.com/94838711/169861898-3101fdf5-4c96-4c3c-9354-7f8c775a1802.png">
-
-# Case Promobit - The Movie DB
+# Case Brainn - Loterias 
 
 [Sobre](#sobre)   |   [O que funciona](#funciona)   |   [Em desenvolvimento](#pendente)   |   [Imagens do Site](#imagens)   |   [Desenvolvido Por](#desenvolvedores)
 
@@ -37,8 +33,11 @@ Ferramentas usadas na construção do projeto:
 
 <h3> Computador: </h3>
 
+![image](https://user-images.githubusercontent.com/94623630/173094764-f04e868a-8254-4552-825a-54ab55f23fba.png)
 
 <h3> Celular:  </h3>
+
+![image](https://user-images.githubusercontent.com/94623630/173094837-c4733a0d-a30c-4425-98c7-236b350a1ddf.png)
 
 <h2 id="desenvolvedores"> 👷 Desenvolvido por: </h2>
 
