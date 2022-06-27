@@ -1,0 +1,11 @@
+export const primaryColor = "#fff"
+
+
+
+
+// #6BEFA3 MEGA SENA
+// #8666EF QUINA
+// #DD7AC6 LOTO FACIL
+// #FFAB64 LOTOMANIA
+// #5AAD7D TIMEMANIA
+// #BFAF83 DIA DE SORTE
